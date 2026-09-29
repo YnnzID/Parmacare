@@ -1,0 +1,223 @@
+/* Custom Styles for PharmaCare Portal */
+
+body {
+    font-size: 1.05rem; /* ~17px base size untuk meningkatkan keterbacaan */
+    line-height: 1.65;
+}
+
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.05);
+}
+::-webkit-scrollbar-thumb {
+    background: #0d9488;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #0f766e;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(203, 213, 225, 0.8);
+}
+.dark .glass-panel {
+    background: rgba(30, 41, 59, 0.92);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(51, 65, 85, 0.8);
+}
+
+/* Scroll Animation Elements */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    will-change: opacity, transform;
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Timeline Custom Styles */
+.timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #cbd5e1;
+    transform: translateX(-50%);
+}
+.dark .timeline-line::before {
+    background: #334155;
+}
+@media (max-width: 768px) {
+    .timeline-line::before {
+        left: 24px;
+    }
+}
+
+/* Pulse Animation Button */
+@keyframes subtlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+.pulse-btn {
+    animation: subtlePulse 3s infinite ease-in-out;
+}
+
+/* Styling pendukung untuk Ripple Effect */
+.card-interactive {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(13, 148, 136, 0.3); /* Warna brand-teal transparan */
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   1. WARNA BACKGROUND HALAMAN UTAMA (GRADIENT TEAL MEDIS)
+   ========================================================================== */
+
+/* Mode Terang (Light Mode) */
+body {
+    background: linear-gradient(135deg, #e6fffa 0%, #f0fdf4 50%, #e0f2fe 100%) !important;
+    background-attachment: fixed !important;
+    min-height: 100vh;
+}
+
+/* Mode Gelap (Dark Mode) */
+html.dark body {
+    background: linear-gradient(135deg, #0b1329 0%, #064e3b 50%, #0f172a 100%) !important;
+    background-attachment: fixed !important;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   2. WARNA BACKGROUND KOTAKAN, KARTU, MODUL & ACCORDION
+   ========================================================================== */
+
+/* Kotakan & Kartu Interaktif (Mode Terang) */
+.card-interactive,
+.glass-panel,
+.myth-card,
+.arv-class-accordion,
+.stat-card,
+.timeline-card,
+.info-box,
+.calculator-box,
+main section,
+div[class*="bg-white"] {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(13, 148, 136, 0.25) !important;
+    box-shadow: 0 8px 20px -4px rgba(13, 148, 136, 0.12) !important;
+    border-radius: 1rem !important;
+}
+
+/* Kotakan & Kartu Interaktif (Mode Gelap) */
+html.dark .card-interactive,
+html.dark .glass-panel,
+html.dark .myth-card,
+html.dark .arv-class-accordion,
+html.dark .stat-card,
+html.dark .timeline-card,
+html.dark .info-box,
+html.dark .calculator-box,
+html.dark main section,
+html.dark div[class*="bg-white"],
+html.dark div[class*="bg-slate"] {
+    background-color: #1e293b !important;
+    border: 1px solid rgba(45, 212, 191, 0.3) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ==========================================================================
+   3. KOTAKAN AKSEN KHUSUS (HIJAU MINT & MERAH MUDA)
+   ========================================================================== */
+
+/* Kotak Informasi Hijau Mint / Teal */
+.info-box-teal,
+.bg-teal-50,
+.bg-emerald-50 {
+    background-color: #ccfbf1 !important; /* Soft Teal Mint */
+    border-left: 6px solid #0d9488 !important;
+}
+html.dark .info-box-teal,
+html.dark .bg-teal-50,
+html.dark .bg-emerald-50 {
+    background-color: #115e59 !important;
+    border-left: 6px solid #2dd4bf !important;
+}
+
+/* Kotak Informasi Merah Peringatan */
+.info-box-rose,
+.bg-rose-50,
+.bg-red-50 {
+    background-color: #ffe4e6 !important; /* Soft Rose */
+    border-left: 6px solid #e11d48 !important;
+}
+html.dark .info-box-rose,
+html.dark .bg-rose-50,
+html.dark .bg-red-50 {
+    background-color: #881337 !important;
+    border-left: 6px solid #fb7185 !important;
+}
+
+/* ==========================================================================
+   4. EFEK INTERAKSI SAAT HOVER DAN KLIK
+   ========================================================================== */
+
+/* Efek Layar Terangkat & Glowing Saat Kursor Diatas Kotakan */
+.card-interactive:hover,
+.myth-card:hover,
+.arv-class-accordion:hover,
+.stat-card:hover {
+    transform: translateY(-5px) !important;
+    border-color: #0d9488 !important;
+    box-shadow: 0 15px 30px rgba(13, 148, 136, 0.25) !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Efek Tekan (Pencet) */
+button:active,
+.card-interactive:active,
+.myth-card:active,
+.arv-class-accordion:active {
+    transform: scale(0.97) !important;
+}
+
+/* Form Input & Select Box */
+input, select, textarea {
+    background-color: #f8fafc !important;
+    border: 1.5px solid #cbd5e1 !important;
+}
+html.dark input, html.dark select, html.dark textarea {
+    background-color: #0f172a !important;
+    border: 1.5px solid #334155 !important;
+    color: #ffffff !important;
+}
+input:focus, select:focus, textarea:focus {
+    border-color: #0d9488 !important;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.3) !important;
+}

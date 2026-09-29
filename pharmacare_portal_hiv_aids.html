@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PharmaCare — Pusat Informasi dan Edukasi Pengobatan HIV & AIDS serta Terapi ARV.">
+  <meta name="keywords" content="PharmaCare, HIV, AIDS, ARV, Obat HIV, Pengobatan HIV, Edukasi Kesehatan">
+  <meta name="author" content="PharmaCare">
+
+  <!-- Logo Icon pada Tab Browser (Favicon) -->
+  <link rel="icon" type="image/png" href="Potret/logo parmacare.png">
+
+  <title>PharmaCare — Portal Edukasi HIV & AIDS</title>
+  
+  <!-- 1. Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 2. FontAwesome Icon CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Configuration -->
+  <script>
+      tailwind.config = {
+          darkMode: 'class',
+          theme: {
+              extend: {
+                  colors: {
+                      brand: {
+                          navy: '#0f172a',
+                          slate: '#1e293b',
+                          teal: '#0d9488',
+                          tealLight: '#14b8a6',
+                          tealDark: '#0f766e',
+                          rose: '#e11d48',
+                          roseAccent: '#f43f5e',
+                          amber: '#d97706',
+                          bgLight: '#f0fdfa',
+                          bgDark: '#041d22'
+                      }
+                  },
+                  fontFamily: {
+                      sans: ['Inter', 'sans-serif']
+                  }
+              }
+          }
+      }
+  </script>
+
+  <style>
+      /* Background Tema PharmaCare */
+      body {
+          background-color: #f0fdfa;
+      }
+      .dark body {
+          background-color: #04171d;
+      }
+
+      /* Glass Panel dengan Border Tema PharmaCare */
+      .glass-panel {
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(14px);
+          border: 1px solid rgba(13, 148, 136, 0.2);
+      }
+      .dark .glass-panel {
+          background: rgba(15, 23, 42, 0.85);
+          border: 1px solid rgba(20, 184, 166, 0.25);
+      }
+
+      /* Kartu Kolom & Box khusus Tema PharmaCare */
+      .pharmacare-card {
+          border: 1.5px solid rgba(13, 148, 136, 0.25);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .pharmacare-card:hover {
+          border-color: rgba(13, 148, 136, 0.6);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 24px -10px rgba(13, 148, 136, 0.25);
+      }
+
+      /* Efek Pulse Glow Button */
+      .pulse-btn {
+          animation: pulse-glow 2s infinite;
+      }
+      @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 15px rgba(13, 148, 136, 0.4); }
+          50% { box-shadow: 0 0 25px rgba(13, 148, 136, 0.7); }
+      }
+
+      /* Efek Animasi Scroll Ke Bawah (Scroll Reveal) */
+      .reveal {
+          opacity: 0;
+          transform: translateY(35px);
+          transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+          will-change: opacity, transform;
+      }
+      .reveal.active {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-teal-50/50 via-slate-50 to-emerald-50/30 text-slate-800 dark:from-slate-950 dark:via-teal-950/20 dark:to-slate-950 dark:text-slate-100 font-sans transition-colors duration-300 min-h-screen flex flex-col relative">
+    
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-teal-500/20 dark:border-teal-800/40 shadow-sm transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#hero" class="flex items-center gap-3.5 cursor-pointer group">
+                <img 
+                    src="Potret/logo parmacare.png" 
+                    alt="Logo PharmaCare" 
+                    class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    onerror="this.style.display='none'"
+                />
+                <div>
+                    <span class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Pharma<span class="text-brand-teal">Care</span></span>
+                    <span class="hidden sm:inline-block text-xs text-rose-600 font-bold ml-2 px-2.5 py-0.5 bg-rose-50 dark:bg-rose-950/60 rounded-full border border-rose-200 dark:border-rose-800">Portal HIV & AIDS</span>
+                </div>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-bold text-slate-700 dark:text-slate-200">
+                <a href="#materi-section" class="hover:text-brand-teal transition-colors">Isi Materi</a>
+                <a href="#video-section" class="hover:text-brand-teal transition-colors">Video Edukasi</a>
+                <a href="#tim-section" class="hover:text-brand-teal transition-colors">Tim Kami</a>
+                <a href="#kontak-section" class="hover:text-brand-teal transition-colors">Kontak</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-xl border border-teal-200 dark:border-teal-800/60 text-slate-700 dark:text-slate-200 hover:bg-teal-50 dark:hover:bg-slate-800 transition-all" title="Ubah Tema">
+                    <i class="fa-solid fa-moon text-lg dark:hidden text-slate-700"></i>
+                    <i class="fa-solid fa-sun text-lg hidden dark:inline text-amber-400"></i>
+                </button>
+
+                <a href="https://wa.me/6282314547381" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md shadow-rose-600/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi
+                </a>
+
+                <button onclick="toggleMobileSidebar()" class="lg:hidden p-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-teal-50 dark:hover:bg-slate-800">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileDrawer" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 hidden flex-col justify-end lg:hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-t-3xl p-6 max-h-[85vh] overflow-y-auto space-y-5 border-t border-teal-500/20 dark:border-teal-800">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+                <span class="font-extrabold text-lg text-slate-900 dark:text-white">Navigasi Utama</span>
+                <button onclick="toggleMobileSidebar()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div class="grid grid-cols-1 gap-3 text-base font-bold">
+                <a href="#hero" onclick="toggleMobileSidebar()" class="p-3.5 rounded-xl hover:bg-teal-50 dark:hover:bg-slate-800 flex items-center gap-3.5"><i class="fa-solid fa-house text-brand-teal text-xl"></i> Beranda Utama</a>
+                <a href="#materi-section" onclick="toggleMobileSidebar()" class="p-3.5 rounded-xl hover:bg-teal-50 dark:hover:bg-slate-800 flex items-center gap-3.5"><i class="fa-solid fa-book-medical text-brand-teal text-xl"></i> Materi</a>
+                <a href="#video-section" onclick="toggleMobileSidebar()" class="p-3.5 rounded-xl hover:bg-teal-50 dark:hover:bg-slate-800 flex items-center gap-3.5"><i class="fa-solid fa-circle-play text-brand-teal text-xl"></i> Video Edukasi</a>
+                <a href="#tim-section" onclick="toggleMobileSidebar()" class="p-3.5 rounded-xl hover:bg-teal-50 dark:hover:bg-slate-800 flex items-center gap-3.5"><i class="fa-solid fa-users text-brand-teal text-xl"></i> Tim Kelompok</a>
+                <a href="#kontak-section" onclick="toggleMobileSidebar()" class="p-3.5 rounded-xl hover:bg-teal-50 dark:hover:bg-slate-800 flex items-center gap-3.5"><i class="fa-solid fa-headset text-brand-teal text-xl"></i> Kontak</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-white overflow-hidden py-20 px-4 border-b border-teal-800/40">
+        <div class="absolute top-1/4 left-10 w-80 h-80 bg-brand-teal/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-rose-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute right-6 top-12 opacity-5 pointer-events-none">
+            <i class="fa-solid fa-ribbon text-[420px]"></i>
+        </div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10 space-y-8 reveal">
+            <div class="inline-flex items-center gap-2.5 px-5 py-2 bg-teal-500/10 backdrop-blur-md rounded-full border border-teal-400/30 text-xs sm:text-sm text-teal-300 font-bold tracking-wide uppercase">
+                <i class="fa-solid fa-shield-virus text-rose-400 text-base"></i> Platform Informasi Terpadu Farmasi & Kesehatan
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black leading-tight tracking-tight text-white">
+                Memahami HIV & AIDS dengan <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-400">Sains, Tanpa Stigma</span>
+            </h1>
+
+            <p class="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal">
+                Portal edukasi medis komprehensif yang menyajikan pembahasan lengkap mengenai penggolongan obat ARV, manajemen dosis, efek samping, strategi pemasaran farmasi, serta sejarah perkembangan terapi ARV.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+                <a href="#materi-section" class="pulse-btn px-7 py-4 bg-gradient-to-r from-brand-teal to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-extrabold rounded-2xl text-sm sm:text-base shadow-xl shadow-teal-500/30 flex items-center gap-2.5 transition-all">
+                    <i class="fa-solid fa-book-open text-lg"></i> Jelajahi 7 Modul Materi
+                </a>
+                <a href="#video-section" class="px-7 py-4 bg-white/10 hover:bg-white/20 border border-teal-400/30 text-white font-bold rounded-2xl text-sm sm:text-base backdrop-blur-md flex items-center gap-2.5 transition-all">
+                    <i class="fa-solid fa-circle-play text-rose-400 text-lg"></i> Tonton Video Edukasi
+                </a>
+                <a href="#tim-section" class="px-7 py-4 bg-slate-800/90 hover:bg-slate-800 border border-teal-500/30 text-slate-200 font-bold rounded-2xl text-sm sm:text-base flex items-center gap-2.5 transition-all">
+                    <i class="fa-solid fa-users text-amber-400 text-lg"></i> Lihat Tim Kelompok
+                </a>
+            </div>
+
+            <!-- Kartu Statistik Hero -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 pt-10 max-w-4xl mx-auto">
+                <div class="p-5 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-teal-500/30 shadow-lg pharmacare-card">
+                    <div class="text-3xl sm:text-4xl font-black text-teal-300">38.4M+</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Estimasi ODHIV Global</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-teal-500/30 shadow-lg pharmacare-card">
+                    <div class="text-3xl sm:text-4xl font-black text-rose-400">&gt;95%</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Target Kepatuhan ARV</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-teal-500/30 shadow-lg pharmacare-card">
+                    <div class="text-3xl sm:text-4xl font-black text-amber-400">U = U</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Undetectable = Untransmittable</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-teal-500/30 shadow-lg pharmacare-card">
+                    <div class="text-3xl sm:text-4xl font-black text-emerald-300">6 Anggota</div>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-300 mt-1">Tim Pengembang Kelompok</p>
+                </div>
+            </div>
+
+            <div class="pt-6">
+                <a href="#materi-section" class="inline-flex flex-col items-center text-sm font-semibold text-slate-300 hover:text-white transition-colors">
+                    <span class="mb-1.5">Scroll Ke Bawah Untuk Membaca</span>
+                    <i class="fa-solid fa-chevron-down animate-bounce text-brand-teal text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Modul Section -->
+    <div id="materi-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20 w-full">
+        
+        <div class="text-center max-w-3xl mx-auto reveal">
+            <span class="px-4 py-1.5 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 text-xs sm:text-sm font-extrabold rounded-full uppercase tracking-wider">Pusat Informasi Terlengkap</span>
+            <h2 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white mt-3">Pembahasan Utama</h2>
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">Edukasi komprehensif mulai dari mekanisme patofisiologi, aturan dosis obat, penanganan efek samping, hingga riset masa depan.</p>
+        </div>
+
+        <!-- Modul 1 -->
+        <section id="modul-1" class="space-y-8 reveal">
+            <div class="p-8 md:p-10 rounded-3xl bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 text-white shadow-2xl relative overflow-hidden border border-teal-500/30">
+                <div class="absolute right-0 top-0 opacity-10 translate-x-8 -translate-y-8 pointer-events-none">
+                    <i class="fa-solid fa-virus-covid text-[260px]"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl">
+                    <span class="px-3.5 py-1 bg-brand-teal/20 text-teal-300 border border-brand-teal/40 text-xs sm:text-sm font-bold rounded-full uppercase">Modul 1</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mt-3">Pengertian HIV & AIDS, Fase Perkembangan, dan Mitos</h3>
+                    <p class="text-slate-300 text-base sm:text-lg mt-3 leading-relaxed">
+                        HIV dan AIDS merupakan dua tahapan berbeda dari infeksi retrovirus yang menyerang sistem kekebalan tubuh manusia. Pemahaman yang tepat merupakan kunci utama pencegahan dan penghentian stigma sosial.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                <div class="glass-panel p-7 rounded-3xl border-l-8 border-l-brand-teal pharmacare-card shadow-md">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-950/80 text-brand-teal flex items-center justify-center font-bold text-2xl shrink-0">
+                            <i class="fa-solid fa-microscope"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">HIV (Human Immunodeficiency Virus)</h4>
+                            <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Virus Penyebab Utama</p>
+                        </div>
+                    </div>
+                    <p class="text-base text-slate-700 dark:text-slate-200 leading-relaxed">
+                        Retrovirus dari famili <em>Lentiviridae</em> yang secara spesifik menyerang dan menghancurkan sel limfosit <strong>CD4 (T-helper cell)</strong>. Tanpa pengobatan ARV, virus ber-replikasi secara eksponensial dan menurunkan daya tahan tubuh.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-7 rounded-3xl border-l-8 border-l-rose-500 pharmacare-card shadow-md">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-950/80 text-rose-500 flex items-center justify-center font-bold text-2xl shrink-0">
+                            <i class="fa-solid fa-shield-virus"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">AIDS (Acquired Immunodeficiency Syndrome)</h4>
+                            <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Fase Akhir / Sindrom Klinis</p>
+                        </div>
+                    </div>
+                    <p class="text-base text-slate-700 dark:text-slate-200 leading-relaxed">
+                        Kondisi stadium lanjut akibat kerusakan sistem imun berat. Didiagnosis jika jumlah sel CD4 berada di bawah <strong>200 sel/mm³</strong> atau ditemukannya <strong>Infeksi Oportunistik (IO)</strong> seperti Tuberkulosis, Jamur Kandidiasis, atau Sarcoma Kaposi.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                <div class="glass-panel p-7 rounded-3xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-800/60 pharmacare-card">
+                    <h4 class="font-bold text-emerald-900 dark:text-emerald-300 text-lg mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-xl"></i> Media Penularan Utama HIV (Cairan Tubuh)
+                    </h4>
+                    <ul class="text-base text-slate-800 dark:text-slate-200 space-y-3 list-disc pl-5">
+                        <li>Darah terinfeksi (transfusi darah, penggunaan jarum suntik steril bersama).</li>
+                        <li>Cairan kelamin (semen, cairan vagina, cairan anus) melalui hubungan seksual tanpa pelindung.</li>
+                        <li>ASI (Air Susu Ibu) dari ibu positif HIV ke bayi saat menyusui (bila tidak dalam rejimen ARV).</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-7 rounded-3xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-300 dark:border-rose-800/60 pharmacare-card">
+                    <h4 class="font-bold text-rose-900 dark:text-rose-300 text-lg mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-xmark text-rose-500 text-xl"></i> TIDAK Menularkan HIV (Aman)
+                    </h4>
+                    <ul class="text-base text-slate-800 dark:text-slate-200 space-y-3 list-disc pl-5">
+                        <li>Kontak fisik harian: Berjabat tangan, berpelukan, atau ciuman pipi.</li>
+                        <li>Gigitan nyamuk/serangga, kolam renang umum, toilet bersama.</li>
+                        <li>Berbagi alat makan, piring, gelas, atau pakaian.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Flashcards Mitos vs Fakta -->
+            <div class="glass-panel p-7 rounded-3xl shadow-md border border-teal-500/20 dark:border-teal-800/40 space-y-4">
+                <h4 class="font-bold text-slate-900 dark:text-white text-lg flex items-center gap-3">
+                    <i class="fa-solid fa-lightbulb text-amber-500 text-2xl"></i> Kuis Mitos vs Fakta Medis (Klik Kartu Untuk Membuka Fakta)
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="myth-card cursor-pointer p-6 rounded-2xl border-2 border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-800 hover:border-brand-teal transition-all shadow-sm pharmacare-card" onclick="flipMythCard(this)">
+                        <div class="card-front">
+                            <span class="text-xs font-black text-rose-500 uppercase tracking-wide">Mitos #1</span>
+                            <p class="text-base font-bold text-slate-900 dark:text-white mt-2">"Nyamuk bisa menyebarkan HIV setelah menggigit penderita."</p>
+                            <span class="text-xs text-brand-teal font-bold mt-4 inline-block"><i class="fa-solid fa-hand-pointer mr-1"></i> Klik untuk fakta medis</span>
+                        </div>
+                        <div class="card-back hidden">
+                            <span class="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">FAKTA MEDIS</span>
+                            <p class="text-base font-semibold text-slate-700 dark:text-slate-200 mt-2">SALAH. Virus HIV tidak dapat bereplikasi di dalam tubuh serangga dan cepat mati di udara bebas.</p>
+                        </div>
+                    </div>
+
+                    <div class="myth-card cursor-pointer p-6 rounded-2xl border-2 border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-800 hover:border-brand-teal transition-all shadow-sm pharmacare-card" onclick="flipMythCard(this)">
+                        <div class="card-front">
+                            <span class="text-xs font-black text-rose-500 uppercase tracking-wide">Mitos #2</span>
+                            <p class="text-base font-bold text-slate-900 dark:text-white mt-2">"Ibu hamil dengan HIV pasti menularkan ke bayinya."</p>
+                            <span class="text-xs text-brand-teal font-bold mt-4 inline-block"><i class="fa-solid fa-hand-pointer mr-1"></i> Klik untuk fakta medis</span>
+                        </div>
+                        <div class="card-back hidden">
+                            <span class="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">FAKTA MEDIS</span>
+                            <p class="text-base font-semibold text-slate-700 dark:text-slate-200 mt-2">SALAH. Melalui terapi ARV rutin saat hamil dan persalinan terencana, risiko penularan dapat ditekan hingga &lt;1%.</p>
+                        </div>
+                    </div>
+
+                    <div class="myth-card cursor-pointer p-6 rounded-2xl border-2 border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-800 hover:border-brand-teal transition-all shadow-sm pharmacare-card" onclick="flipMythCard(this)">
+                        <div class="card-front">
+                            <span class="text-xs font-black text-rose-500 uppercase tracking-wide">Mitos #3</span>
+                            <p class="text-base font-bold text-slate-900 dark:text-white mt-2">"ARV bisa menyembuhkan HIV secara total."</p>
+                            <span class="text-xs text-brand-teal font-bold mt-4 inline-block"><i class="fa-solid fa-hand-pointer mr-1"></i> Klik untuk fakta medis</span>
+                        </div>
+                        <div class="card-back hidden">
+                            <span class="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">FAKTA MEDIS</span>
+                            <p class="text-base font-semibold text-slate-700 dark:text-slate-200 mt-2">SALAH. ARV menekan viral load hingga tak terdeteksi, mempertahankan kesehatan pasien namun harus diminum seumur hidup.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modul 2 -->
+        <section id="modul-2" class="space-y-8 reveal">
+            <div class="glass-panel p-8 rounded-3xl shadow-md border border-teal-500/20 dark:border-teal-800/40">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div>
+                        <span class="px-3.5 py-1 bg-brand-teal/10 text-brand-teal text-xs sm:text-sm font-bold rounded-full uppercase">Modul 2</span>
+                        <h3 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">Penggolongan Obat Antiretroviral (ARV)</h3>
+                        <p class="text-base text-slate-600 dark:text-slate-300 mt-2">
+                            Klik pada setiap kelas obat di bawah ini untuk membuka detail penjelasan lengkap, contoh obat, indikasi, serta kelebihan & kekurangannya.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                        <input type="text" id="arvClassSearchInput" onkeyup="filterExpandableClasses()" placeholder="Cari Penggolongan..." 
+                            class="px-4 py-3 text-sm sm:text-base rounded-2xl border-2 border-teal-500/30 dark:border-teal-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-teal w-full lg:w-80 shadow-sm">
+
+                        <button onclick="toggleExpandAllClasses()" id="masterExpandBtn" class="px-5 py-3 bg-brand-teal hover:bg-teal-700 text-white font-bold rounded-2xl text-sm transition-all shadow-md shadow-teal-500/20 shrink-0 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-folder-open"></i> Buka Semua Kelas
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6" id="expandableClassList">
+                <!-- Class 1: NRTI -->
+                <div class="arv-class-accordion rounded-3xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 shadow-md overflow-hidden transition-all pharmacare-card" data-class="NRTI" data-keywords="nrti tenofovir tdf lamivudine 3tc abacavir abc zidovudine azt emtricitabine ftc">
+                    <button onclick="toggleARVClass('class-nrti')" class="w-full p-6 text-left flex items-center justify-between gap-4 bg-slate-100/80 dark:bg-slate-800 hover:bg-teal-50/50 dark:hover:bg-slate-700/60 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-teal-500 text-white flex items-center justify-center font-black text-xl shrink-0 shadow-md">
+                                NRTI
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">1. NRTI (Nucleoside Reverse Transcriptase Inhibitors)</h4>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-teal-100 text-teal-800 dark:bg-teal-950 dark:text-teal-300">Tulang Punggung Rejimen</span>
+                                </div>
+                                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-1">Menghentikan sintesis rantai DNA virus dengan meniru nukleosida alami.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <span class="hidden sm:inline-block text-xs font-extrabold text-brand-teal uppercase tracking-wide bg-brand-teal/10 px-3 py-1.5 rounded-xl">Buka Detail</span>
+                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-teal-500/30 dark:border-teal-800 flex items-center justify-center text-brand-teal">
+                                <i id="class-nrti-icon" class="fa-solid fa-chevron-down text-lg transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="class-nrti" class="hidden p-7 border-t border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-900/60 space-y-6">
+                        <div class="p-5 rounded-2xl bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800">
+                            <h5 class="font-extrabold text-teal-900 dark:text-teal-300 text-base mb-1 flex items-center gap-2"><i class="fa-solid fa-gear"></i> Mekanisme Kerja Utama</h5>
+                            <p class="text-base text-slate-700 dark:text-slate-200">
+                                Berkompetisi dengan nukleosida seluler alami untuk masuk ke dalam rantai DNA HIV yang sedang dibentuk oleh enzim <em>Reverse Transcriptase</em>. Begitu terikat, NRTI bertindak sebagai "penghambat terminal" yang menghentikan pemanjangan DNA virus.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h5 class="font-bold text-slate-900 dark:text-white text-lg mb-3"><i class="fa-solid fa-capsules text-brand-teal"></i> Daftar Contoh Obat Generik & Paten</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Tenofovir DF (TDF)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Viread, Ricovir</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 300 mg (1x/hari). Paling umum dipakai dalam rejimen FDC lini pertama.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Lamivudine (3TC)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Epivir, Lamivir</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 300 mg (1x/hari). Efek samping sangat rendah, aman bagi mayoritas pasien.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Abacavir (ABC)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Ziagen</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 600 mg (1x/hari). Alternatif TDF jika pasien mengalami gangguan ginjal.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Zidovudine (AZT)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Retrovir</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 300 mg (2x/hari). ARV tertua, kini banyak digunakan pada pencegahan transmisi ibu-ke-bayi.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Emtricitabine (FTC)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Emtriva</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 200 mg (1x/hari). Sangat mirip dengan Lamivudine, sering dikombinasikan dengan TDF/TAF.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm sm:text-base">
+                            <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800">
+                                <h6 class="font-bold text-emerald-900 dark:text-emerald-300 mb-1"><i class="fa-solid fa-thumbs-up"></i> Kelebihan</h6>
+                                <p class="text-slate-700 dark:text-slate-200">Mempunyai rekam jejak efektivitas klinis puluhan tahun dan menjadi komponen utama hampir semua terapi kombinasi.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800">
+                                <h6 class="font-bold text-rose-900 dark:text-rose-300 mb-1"><i class="fa-solid fa-triangle-exclamation"></i> Perlu Diwaspadai</h6>
+                                <p class="text-slate-700 dark:text-slate-200">TDF memerlukan pemantauan fungsi ginjal dan kepadatan tulang. Abacavir memerlukan tes genetik HLA-B*5701.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class 2: NNRTI -->
+                <div class="arv-class-accordion rounded-3xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 shadow-md overflow-hidden transition-all pharmacare-card" data-class="NNRTI" data-keywords="nnrti efavirenz efv nevirapine nvp rilpivirine rpv etravirine">
+                    <button onclick="toggleARVClass('class-nnrti')" class="w-full p-6 text-left flex items-center justify-between gap-4 bg-slate-100/80 dark:bg-slate-800 hover:bg-teal-50/50 dark:hover:bg-slate-700/60 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black text-xl shrink-0 shadow-md">
+                                NNRTI
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">2. NNRTI (Non-Nucleoside Reverse Transcriptase Inhibitors)</h4>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Penghambat Non-Kompetitif</span>
+                                </div>
+                                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-1">Mengikat secara spesifik pada pusat aktif enzim virus dan mengunci kinerjanya.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <span class="hidden sm:inline-block text-xs font-extrabold text-brand-teal uppercase tracking-wide bg-brand-teal/10 px-3 py-1.5 rounded-xl">Buka Detail</span>
+                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-teal-500/30 dark:border-teal-800 flex items-center justify-center text-brand-teal">
+                                <i id="class-nnrti-icon" class="fa-solid fa-chevron-down text-lg transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="class-nnrti" class="hidden p-7 border-t border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-900/60 space-y-6">
+                        <div class="p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+                            <h5 class="font-extrabold text-amber-900 dark:text-amber-300 text-base mb-1 flex items-center gap-2"><i class="fa-solid fa-gear"></i> Mekanisme Kerja Utama</h5>
+                            <p class="text-base text-slate-700 dark:text-slate-200">
+                                Mengikat secara langsung pada poket alosterik enzim <em>Reverse Transcriptase</em> virus. Pengikatan ini mengubah bentuk konformasi tiga dimensi enzim sehingga tidak mampu lagi memproses pembentukan DNA viral.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h5 class="font-bold text-slate-900 dark:text-white text-lg mb-3"><i class="fa-solid fa-capsules text-brand-teal"></i> Daftar Contoh Obat Generik & Paten</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Efavirenz (EFV)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Sustiva, Avirenz</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 600 mg (1x/hari malam sebelum tidur). Sangat efektif namun dapat memicu mimpi buruk di awal penggunaan.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Nevirapine (NVP)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Viramune</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 200 mg (2x/hari). Memerlukan penyesuaian dosis bertahap (*lead-in phase*) untuk mencegah ruam kulit.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Rilpivirine (RPV)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Edurant</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 25 mg (1x/hari bersama makanan berat). Memiliki efek samping SSP yang lebih rendah dibandingkan EFV.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Etravirine (ETR)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Intelence</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 200 mg (2x/hari). NNRTI generasi kedua yang efektif untuk kasus yang resisten terhadap EFV/NVP.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class 3: INSTI -->
+                <div class="arv-class-accordion rounded-3xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 shadow-md overflow-hidden transition-all pharmacare-card" data-class="INSTI" data-keywords="insti dolutegravir dtg raltegravir ral bictegravir biktarvy elvitegravir">
+                    <button onclick="toggleARVClass('class-insti')" class="w-full p-6 text-left flex items-center justify-between gap-4 bg-slate-100/80 dark:bg-slate-800 hover:bg-teal-50/50 dark:hover:bg-slate-700/60 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shrink-0 shadow-md">
+                                INSTI
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">3. INSTI (Integrase Strand Transfer Inhibitors)</h4>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Gold Standard Utama</span>
+                                </div>
+                                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-1">Mencegah penyisipan DNA virus ke dalam genom sel imun CD4 manusia.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <span class="hidden sm:inline-block text-xs font-extrabold text-brand-teal uppercase tracking-wide bg-brand-teal/10 px-3 py-1.5 rounded-xl">Buka Detail</span>
+                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-teal-500/30 dark:border-teal-800 flex items-center justify-center text-brand-teal">
+                                <i id="class-insti-icon" class="fa-solid fa-chevron-down text-lg transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="class-insti" class="hidden p-7 border-t border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-900/60 space-y-6">
+                        <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
+                            <h5 class="font-extrabold text-emerald-900 dark:text-emerald-300 text-base mb-1 flex items-center gap-2"><i class="fa-solid fa-gear"></i> Mekanisme Kerja Utama</h5>
+                            <p class="text-base text-slate-700 dark:text-slate-200">
+                                Menghambat enzim <em>Integrase</em> yang dibutuhkan HIV untuk menyisipkan (*integrate*) materi genetiknya ke dalam kromosom sel CD4. Tanpa integrasi ini, virus tidak dapat melakukan replikasi dan memproduksi virus baru.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h5 class="font-bold text-slate-900 dark:text-white text-lg mb-3"><i class="fa-solid fa-capsules text-brand-teal"></i> Daftar Contoh Obat Generik & Paten</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Dolutegravir (DTG)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Tivicay (Kombinasi: TLD)</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 50 mg (1x/hari). Direkomendasikan WHO sebagai lini pertama global karena toleransi luar biasa.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Bictegravir (BIC)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Biktarvy</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: Terdapat dalam kombi 1 pil harian. Penurunan *viral load* sangat pesat dengan batas resistensi tinggi.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Raltegravir (RAL)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Isentress</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 400 mg (2x/hari). INSTI generasi pertama yang terbukti aman bagi bayi dan ibu hamil.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 text-sm sm:text-base">
+                            <h6 class="font-bold text-teal-900 dark:text-teal-300 mb-1"><i class="fa-solid fa-star"></i> Alasan Menjadi Pilihan Utama WHO</h6>
+                            <p class="text-slate-700 dark:text-slate-200">INSTI mampu menurunkan jumlah virus (*viral load*) di darah lebih cepat dibandingkan NNRTI/PI, serta memiliki ambang batas resistensi obat yang sangat tinggi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class 4: PI -->
+                <div class="arv-class-accordion rounded-3xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 shadow-md overflow-hidden transition-all pharmacare-card" data-class="PI" data-keywords="pi protease inhibitor lopinavir ritonavir kaletra atazanavir darunavir">
+                    <button onclick="toggleARVClass('class-pi')" class="w-full p-6 text-left flex items-center justify-between gap-4 bg-slate-100/80 dark:bg-slate-800 hover:bg-teal-50/50 dark:hover:bg-slate-700/60 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-rose-600 text-white flex items-center justify-center font-black text-xl shrink-0 shadow-md">
+                                PI
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">4. PI (Protease Inhibitors)</h4>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300">Penghambat Pematangan Virus</span>
+                                </div>
+                                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-1">Mencegah pemotongan rantai poliprotein sehingga virus baru tetap tidak matang (*immature*).</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <span class="hidden sm:inline-block text-xs font-extrabold text-brand-teal uppercase tracking-wide bg-brand-teal/10 px-3 py-1.5 rounded-xl">Buka Detail</span>
+                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-teal-500/30 dark:border-teal-800 flex items-center justify-center text-brand-teal">
+                                <i id="class-pi-icon" class="fa-solid fa-chevron-down text-lg transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="class-pi" class="hidden p-7 border-t border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-900/60 space-y-6">
+                        <div class="p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800">
+                            <h5 class="font-extrabold text-rose-900 dark:text-rose-300 text-base mb-1 flex items-center gap-2"><i class="fa-solid fa-gear"></i> Mekanisme Kerja Utama</h5>
+                            <p class="text-base text-slate-700 dark:text-slate-200">
+                                Menghambat kerja enzim <em>Protease</em>. Enzim ini bertugas memotong molekul asam amino panjang menjadi protein fungsional untuk merakit virus matang. Hambatan ini menghasilkan virion cacat yang tidak menular.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h5 class="font-bold text-slate-900 dark:text-white text-lg mb-3"><i class="fa-solid fa-capsules text-brand-teal"></i> Daftar Contoh Obat Generik & Paten</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Lopinavir / Ritonavir (LPV/r)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Kaletra, Aluvia</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: Kombinasi (2x/hari). Pilihan utama untuk Lini Kedua jika pasien gagal Lini Pertama.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Atazanavir (ATV)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Reyataz</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 300 mg (1x/hari dikombinasikan dengan Ritonavir booster). Efek samping profil lipid lebih baik.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Darunavir (DRV)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Prezista</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 800 mg (1x/hari dengan ritonavir). PI paling tangguh melawan mutasi virion kompleks.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class 5: EI/FI -->
+                <div class="arv-class-accordion rounded-3xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 shadow-md overflow-hidden transition-all pharmacare-card" data-class="EI" data-keywords="entry fusion inhibitor maraviroc enfuvirtide t20 ibalizumab">
+                    <button onclick="toggleARVClass('class-ei')" class="w-full p-6 text-left flex items-center justify-between gap-4 bg-slate-100/80 dark:bg-slate-800 hover:bg-teal-50/50 dark:hover:bg-slate-700/60 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-600 text-white flex items-center justify-center font-black text-xl shrink-0 shadow-md">
+                                EI/FI
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">5. Entry & Fusion Inhibitors / CCR5 Antagonists</h4>
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Inhibitor Penempelan Dinding Sel</span>
+                                </div>
+                                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-1">Mencegah virus menempel atau melebur dengan membran sel imun CD4.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <span class="hidden sm:inline-block text-xs font-extrabold text-brand-teal uppercase tracking-wide bg-brand-teal/10 px-3 py-1.5 rounded-xl">Buka Detail</span>
+                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-teal-500/30 dark:border-teal-800 flex items-center justify-center text-brand-teal">
+                                <i id="class-ei-icon" class="fa-solid fa-chevron-down text-lg transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="class-ei" class="hidden p-7 border-t border-teal-500/20 dark:border-teal-800/50 bg-white dark:bg-slate-900/60 space-y-6">
+                        <div class="p-5 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800">
+                            <h5 class="font-extrabold text-purple-900 dark:text-purple-300 text-base mb-1 flex items-center gap-2"><i class="fa-solid fa-gear"></i> Mekanisme Kerja Utama</h5>
+                            <p class="text-base text-slate-700 dark:text-slate-200">
+                                Bekerja di bagian terluar sel CD4. Maraviroc memblokir reseptor ko-CCR5 pada permukaan sel CD4, sedangkan Enfuvirtide memblokir perubahan bentuk glikoprotein gp41 virus agar tidak bisa melebur dengan membran sel human.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h5 class="font-bold text-slate-900 dark:text-white text-lg mb-3"><i class="fa-solid fa-capsules text-brand-teal"></i> Daftar Contoh Obat Generik & Paten</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Maraviroc (MVC)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Selzentry</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Dosis: 300 mg (2x/hari). Memerlukan tes *tropism* untuk memastikan virus pasien bertipe CCR5-tropic.</p>
+                                </div>
+                                <div class="p-4 rounded-xl border border-teal-500/20 dark:border-teal-800/40 bg-slate-50 dark:bg-slate-800 pharmacare-card">
+                                    <h6 class="font-bold text-slate-900 dark:text-white text-base">Enfuvirtide (T-20)</h6>
+                                    <p class="text-xs font-semibold text-brand-teal">Merk: Fuzeon</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Formulasi: Injeksi subkutan (2x/hari). Digunakan untuk kasus resistensi multi-obat yang sangat kompleks.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stiker / Kartu saat Hasil Pencarian Tidak Ditemukan -->
+            <div id="noARVResultsFound" class="hidden text-center py-12 px-6 rounded-3xl bg-white dark:bg-slate-800 border-2 border-dashed border-teal-500/30 dark:border-teal-800/60 shadow-sm transition-all">
+                <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center text-4xl text-brand-teal">
+                    <i class="fa-solid fa-magnifying-glass-slash"></i>
+                </div>
+                <h4 class="text-xl font-extrabold text-slate-900 dark:text-white">Penggolongan Tidak Ditemukan</h4>
+                <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2 max-w-md mx-auto">
+                    Maaf, kata kunci "<span id="searchKeywordPlaceholder" class="font-bold text-brand-teal"></span>" tidak cocok dengan nama kelas, singkatan, atau contoh obat ARV apa pun.
+                </p>
+                <button onclick="resetARVSearch()" class="mt-5 px-4 py-2 bg-brand-teal/10 hover:bg-brand-teal/20 text-brand-teal text-xs font-bold rounded-xl transition-all inline-flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Pencarian
+                </button>
+            </div>
+        </section>
+
+        <!-- Modul 3 -->
+        <section id="modul-3" class="space-y-8 reveal">
+            <div class="glass-panel p-8 rounded-3xl shadow-md border border-teal-500/20 dark:border-teal-800/40">
+                <span class="px-3.5 py-1 bg-brand-teal/10 text-brand-teal text-xs sm:text-sm font-bold rounded-full uppercase">Modul 3</span>
+                <h3 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">Aturan Pakai & Kalkulator Kepatuhan (Adherence)</h3>
+                <p class="text-base text-slate-600 dark:text-slate-300 mt-2">
+                    Terapi ARV membutuhkan tingkat kepatuhan amat tinggi (<strong>&gt;95%</strong>) untuk mencegah mutasi resistensi dan mempertahankan penekanan jumlah virus secara permanen.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-6">
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 space-y-4 shadow-sm pharmacare-card">
+                        <h4 class="font-bold text-lg text-brand-teal flex items-center gap-2"><i class="fa-solid fa-pills text-xl"></i> Prinsip Rejimen FDC vs Multi-Pil</h4>
+                        <p class="text-base text-slate-700 dark:text-slate-200 leading-relaxed">
+                            <strong>Fixed-Dose Combination (FDC):</strong> Menggabungkan 3 jenis obat ARV sekaligus dalam 1 pil tunggal (contoh: TLE / TLD). Dikonsumsi 1 kali sehari pada jam yang persis sama.
+                        </p>
+                        <p class="text-base text-slate-700 dark:text-slate-200 leading-relaxed">
+                            <strong>Kedisiplinan Jam Minum Obat:</strong> Jika jadwal minum obat disepakati jam 20:00 malam, maka setiap hari harus diminum tepat pukul 20:00 malam untuk menjamin kadar obat konstan dalam darah.
+                        </p>
+                    </div>
+
+                    <!-- Calculator Widget -->
+                    <div class="p-6 rounded-2xl bg-teal-50/60 dark:bg-slate-800/90 border border-teal-500/30 dark:border-teal-800/50 space-y-4 shadow-sm pharmacare-card">
+                        <h4 class="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2.5"><i class="fa-solid fa-calculator text-brand-teal text-xl"></i> Kalkulator Simulasi Skor Kepatuhan (30 Hari)</h4>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-1.5">Dosis Wajib Dalam Sehari:</label>
+                            <select id="dosesPerDay" class="w-full text-base p-3 rounded-xl border-2 border-teal-500/30 dark:border-teal-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-white">
+                                <option value="30">1 Kali Sehari (Total 30 Dosis / Bulan)</option>
+                                <option value="60">2 Kali Sehari (Total 60 Dosis / Bulan)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-1.5">Jumlah Dosis Terlupa/Terlewat Dalam Sebulan:</label>
+                            <input type="number" id="missedDoses" min="0" max="60" value="1" class="w-full text-base p-3 rounded-xl border-2 border-teal-500/30 dark:border-teal-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-white">
+                        </div>
+                        <button onclick="calculateAdherence()" class="w-full py-3 bg-brand-teal hover:bg-teal-700 text-white font-extrabold rounded-xl text-base transition-all shadow-md shadow-teal-500/20">
+                            Hitung Tingkat Kepatuhan Saya
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-teal-500/30 dark:border-teal-800/50 mt-6 flex flex-col md:flex-row items-center justify-between gap-6 pharmacare-card">
+                    <div>
+                        <span class="text-xs text-slate-500 dark:text-slate-400 font-extrabold uppercase tracking-wider block">Hasil Analisis Kepatuhan</span>
+                        <div class="text-4xl font-black text-emerald-600 dark:text-emerald-400 mt-1" id="adherencePercentage">96.7%</div>
+                        <span class="mt-2 text-sm font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 inline-block" id="adherenceStatus">SANGAT BAIK (Target Sesuai)</span>
+                    </div>
+                    <p class="text-base text-slate-700 dark:text-slate-200 max-w-xl leading-relaxed" id="adherenceAdvice">
+                        Pertahankan tingkat kepatuhan ini! Anda berada dalam zona aman untuk penekanan virus secara konsisten.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modul 4 -->
+        <section id="modul-4" class="space-y-8 my-8 reveal">
+            <div class="p-6 sm:p-8 rounded-3xl shadow-md border border-teal-500/20 dark:border-teal-800/40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+                <span class="px-3.5 py-1 bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs sm:text-sm font-bold rounded-full uppercase inline-block">
+                    Modul 4
+                </span>
+                <h3 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">
+                    Efek Samping ARV & Manajemen Medis
+                </h3>
+                <p class="text-base text-slate-600 dark:text-slate-300 mt-2">
+                    Memahami perbedaan efek samping jangka pendek vs jangka panjang dan panduan tindakan yang aman tanpa menghentikan obat secara sepihak.
+                </p>
+
+                <div class="space-y-4 mt-6">
+                    <!-- Item 1: Efek Samping Jangka Pendek -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 overflow-hidden shadow-sm pharmacare-card">
+                        <button type="button" onclick="toggleAccordion('acc-1')" class="w-full p-5 text-left flex items-center justify-between font-bold text-base sm:text-lg text-slate-900 dark:text-white hover:bg-teal-50/50 dark:hover:bg-slate-700/50 transition-colors">
+                            <span class="flex items-center gap-3">
+                                <i class="fa-solid fa-pills text-amber-500 text-xl w-6 text-center"></i> 
+                                <span>1. Efek Samping Jangka Pendek (Minggu 1-4 Awal Terapi)</span>
+                            </span>
+                            <i id="acc-1-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-lg"></i>
+                        </button>
+                        <div id="acc-1" class="hidden p-6 border-t border-teal-500/20 dark:border-teal-800/50 bg-slate-50 dark:bg-slate-800/50 text-base text-slate-700 dark:text-slate-200 space-y-3">
+                            <p><strong>Gejala Umum:</strong> Mual ringan, pusing, diare, kelelahan, dan fenomena mimpi buruk/kaget saat tidur (efek khas Efavirenz).</p>
+                            <p><strong>Solusi Praktis:</strong> Minum obat bersama camilan ringan, penuhi asupan air putih minimal 2 liter/hari, serta minum obat EFV tepat sebelum tidur malam dalam keadaan perut tidak terlalu kenyang.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Efek Samping Jangka Panjang -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 overflow-hidden shadow-sm pharmacare-card">
+                        <button type="button" onclick="toggleAccordion('acc-2')" class="w-full p-5 text-left flex items-center justify-between font-bold text-base sm:text-lg text-slate-900 dark:text-white hover:bg-teal-50/50 dark:hover:bg-slate-700/50 transition-colors">
+                            <span class="flex items-center gap-3">
+                                <i class="fa-solid fa-bone text-rose-500 text-xl w-6 text-center"></i> 
+                                <span>2. Efek Samping Jangka Panjang & Pengawasan Organ</span>
+                            </span>
+                            <i id="acc-2-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-lg"></i>
+                        </button>
+                        <div id="acc-2" class="hidden p-6 border-t border-teal-500/20 dark:border-teal-800/50 bg-slate-50 dark:bg-slate-800/50 text-base text-slate-700 dark:text-slate-200 space-y-3">
+                            <p><strong>Risiko Medis:</strong> Lipodistrofi (perubahan distribusi lemak tubuh), penurunan fungsi pembuangan ginjal (efek pemakaian TDF bertahun-tahun), serta risiko osteopenia/osteoporosis.</p>
+                            <p><strong>Solusi Praktis:</strong> Lakukan tes darah berkala mencakup kadar Kreatinin ginjal dan SGOT/SGPT hati setiap 6 bulan sekali di faskes PDP Anda.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Peringatan Tanda Alergi Berat -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-800 border-2 border-teal-500/20 dark:border-teal-800/50 overflow-hidden shadow-sm pharmacare-card">
+                        <button type="button" onclick="toggleAccordion('acc-3')" class="w-full p-5 text-left flex items-center justify-between font-bold text-base sm:text-lg text-slate-900 dark:text-white hover:bg-teal-50/50 dark:hover:bg-slate-700/50 transition-colors">
+                            <span class="flex items-center gap-3">
+                                <i class="fa-solid fa-triangle-exclamation text-rose-600 text-xl w-6 text-center"></i> 
+                                <span>3. Peringatan Tanda Alergi Berat (Stevens-Johnson Syndrome)</span>
+                            </span>
+                            <i id="acc-3-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-lg"></i>
+                        </button>
+                        <div id="acc-3" class="hidden p-6 border-t border-teal-500/20 dark:border-teal-800/50 bg-slate-50 dark:bg-slate-800/50 text-base text-slate-700 dark:text-slate-200 space-y-3">
+                            <p><strong>Kondisi Darurat:</strong> Jika timbul ruam kulit meluas disertai demam tinggi, mata merah, serta luka lepuh di area bibir atau rongga mulut, SEGERA ke Instalasi Gawat Darurat (IGD) Rumah Sakit terdekat!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modul 5 -->
+        <section id="modul-5" class="space-y-8 reveal">
+            <div class="p-8 rounded-3xl bg-gradient-to-r from-teal-700 via-emerald-700 to-teal-800 text-white shadow-xl relative overflow-hidden">
+                <span class="px-3.5 py-1 bg-white/20 text-white text-xs font-bold rounded-full uppercase">Modul 5</span>
+                <h3 class="text-3xl font-black mt-2">Pola Hidup Sehat, PrEP, PEP & Konsep U=U</h3>
+                <p class="text-base sm:text-lg text-teal-50 mt-2 max-w-3xl leading-relaxed">
+                    Bukti ilmiah global menepis stigma: Pasien HIV dengan status <strong>Viral Load Tak Terdeteksi (&lt;50 kopi/mL) TIDAK AKAN Menularkan HIV secara seksual (U=U / Undetectable = Untransmittable)</strong>.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-panel p-6 rounded-3xl border-t-8 border-t-brand-teal pharmacare-card shadow-sm">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-2"><i class="fa-solid fa-shield text-brand-teal text-xl"></i> PrEP (Pre-Exposure)</h4>
+                    <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed">Obat pencegahan harian yang dikonsumsi oleh individu HIV Negatif berisiko tinggi untuk mencegah masuknya virus.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl border-t-8 border-t-rose-500 pharmacare-card shadow-sm">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-2"><i class="fa-solid fa-kit-medical text-rose-500 text-xl"></i> PEP (Post-Exposure)</h4>
+                    <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed">Pencegahan darurat pasca paparan. Harus dikonsumsi dalam kurun waktu &lt;72 jam dan diminum selama 28 hari penuh.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl border-t-8 border-t-amber-500 pharmacare-card shadow-sm">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-2"><i class="fa-solid fa-apple-whole text-amber-500 text-xl"></i> Nutrisi Matang</h4>
+                    <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed">Konsumsi makanan kaya protein yang dimasak matang sempurna guna menghindari infeksi bakteri oportunistik saluran cerna.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl border-t-8 border-t-purple-500 pharmacare-card shadow-sm">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-2"><i class="fa-solid fa-heart-pulse text-purple-500 text-xl"></i> Kesehatan Mental</h4>
+                    <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed">Bergabung dengan Kelompok Dukungan Sebaya (KDS) untuk meningkatkan penerimaan diri dan motivasi minum obat.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modul 6 -->
+        <section id="modul-6" class="space-y-8 reveal">
+            <div class="glass-panel p-8 rounded-3xl shadow-md border border-teal-500/20 dark:border-teal-800/40">
+                <span class="px-3.5 py-1 bg-brand-teal/10 text-brand-teal text-xs sm:text-sm font-bold rounded-full uppercase">Modul 6</span>
+                <h3 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">Strategi Pemasaran Obat ARV & Etika Farmasi</h3>
+                <p class="text-base text-slate-600 dark:text-slate-300 mt-2">Pemasaran ARV berorientasi pada keberlanjutan layanan publik, akses universal, serta edukasi publik non-komersial.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card shadow-sm">
+                        <i class="fa-solid fa-building-columns text-brand-teal text-3xl mb-3"></i>
+                        <h4 class="font-bold text-base text-slate-900 dark:text-white">1. Kemitraan G2G & BPJS</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">Pengadaan terpusat melalui e-Katalog Kemenkes untuk penggratisan ARV di Layanan PDP.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card shadow-sm">
+                        <i class="fa-solid fa-users-between-lines text-brand-teal text-3xl mb-3"></i>
+                        <h4 class="font-bold text-base text-slate-900 dark:text-white">2. Kampanye Anti-Stigma</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">Promosi berfokus pada literasi medis U=U dan tes HIV mandiri tanpa menghakimi.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card shadow-sm">
+                        <i class="fa-solid fa-pills text-brand-teal text-3xl mb-3"></i>
+                        <h4 class="font-bold text-base text-slate-900 dark:text-white">3. Keunggulan Regimen STR</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">Menyoroti kepraktisan 1 pil harian (Single-Tablet Regimen) untuk mencegah *pill fatigue*.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card shadow-sm">
+                        <i class="fa-solid fa-snowflake text-brand-teal text-3xl mb-3"></i>
+                        <h4 class="font-bold text-base text-slate-900 dark:text-white">4. Distribusi Cold-Chain</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">Jaminan kualitas penyimpanan obat hingga daerah terpencil tanpa pernah putus stok.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modul 7 -->
+        <section id="modul-7" class="space-y-8 reveal">
+            <div class="glass-panel p-8 rounded-3xl shadow-md border border-teal-500/20 dark:border-teal-800/40">
+                <span class="px-3.5 py-1 bg-brand-teal/10 text-brand-teal text-xs sm:text-sm font-bold rounded-full uppercase">Modul 7</span>
+                <h3 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">Sejarah Evolusi Terapi ARV dari Masa ke Masa</h3>
+                <p class="text-base text-slate-600 dark:text-slate-300 mt-2">Perjalanan riset medis mengubah penyakit yang dulunya mematikan menjadi kondisi kronis terkelola secara normal.</p>
+
+                <div class="relative space-y-10 py-8 mt-6">
+                    <!-- Milestone 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="w-full md:w-1/2 md:pr-10 text-right hidden md:block">
+                            <span class="text-sm font-black text-rose-500 uppercase tracking-wide">1987</span>
+                            <h4 class="font-bold text-lg text-slate-900 dark:text-white mt-1">Penemuan Monoterapi AZT Pertama</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">AZT disetujui FDA sebagai obat HIV pertama di dunia, meski penggunaannya tunggal cepat memicu resistensi.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold text-sm z-10 shadow-lg shrink-0 my-2 md:my-0">1</div>
+                        <div class="w-full md:w-1/2 pl-0 md:pl-10 text-left">
+                            <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card md:hidden">
+                                <span class="text-xs font-black text-rose-500 uppercase">1987</span>
+                                <h4 class="font-bold text-base text-slate-900 dark:text-white mt-1">Monoterapi AZT Pertama</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Obat HIV pertama disetujui FDA.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 2 -->
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="w-full md:w-1/2 pr-10 text-right hidden md:block"></div>
+                        <div class="w-10 h-10 rounded-full bg-brand-teal text-white flex items-center justify-center font-bold text-sm z-10 shadow-lg shrink-0 my-2 md:my-0">2</div>
+                        <div class="w-full md:w-1/2 pl-0 md:pl-10 text-left">
+                            <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card">
+                                <span class="text-xs font-black text-brand-teal uppercase">1996</span>
+                                <h4 class="font-bold text-lg text-slate-900 dark:text-white mt-1">Era Kombinasi HAART (Triple Therapy)</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Penggabungan 3 obat ARV berbeda menurunkan angka kematian akibat AIDS hingga &gt;60% dalam tempo singkat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 3 -->
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="w-full md:w-1/2 md:pr-10 text-right hidden md:block">
+                            <span class="text-sm font-black text-amber-500 uppercase tracking-wide">Tahun 2000-an</span>
+                            <h4 class="font-bold text-lg text-slate-900 dark:text-white mt-1">Single-Tablet Regimen (FDC)</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Penggabungan 3 jenis zat aktif ke dalam 1 pil tunggal harian meningkatkan angka kepatuhan obat secara masif.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm z-10 shadow-lg shrink-0 my-2 md:my-0">3</div>
+                        <div class="w-full md:w-1/2 pl-0 md:pl-10 text-left">
+                            <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card md:hidden">
+                                <span class="text-xs font-black text-amber-500 uppercase">Tahun 2000-an</span>
+                                <h4 class="font-bold text-base text-slate-900 dark:text-white mt-1">Era FDC Single Tablet</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Satu pil sehari menggantikan belasan kapsul.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 4 -->
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="w-full md:w-1/2 pr-10 text-right hidden md:block"></div>
+                        <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm z-10 shadow-lg shrink-0 my-2 md:my-0">4</div>
+                        <div class="w-full md:w-1/2 pl-0 md:pl-10 text-left">
+                            <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-teal-500/20 dark:border-teal-800/40 pharmacare-card">
+                                <span class="text-xs font-black text-emerald-500 uppercase">2020-an & Masa Depan</span>
+                                <h4 class="font-bold text-lg text-slate-900 dark:text-white mt-1">Injeksi Long-Acting & Riset Genom CRISPR</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Injeksi ARV 2 bulan sekali (Cabenuva) serta eksperimen pengeditan DNA CRISPR untuk eliminasi reservoir virus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Video Edukasi Section -->
+    <section id="video-section" class="bg-slate-950 text-white py-20 px-4 border-t border-teal-800/40 reveal">
+        <div class="max-w-7xl mx-auto space-y-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="px-4 py-1.5 bg-rose-500/20 text-rose-400 text-xs sm:text-sm font-bold rounded-full uppercase border border-rose-500/30">Pusat Multi-Media</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold mt-3">Video Edukasi HIV & Terapi ARV</h2>
+                <p class="text-base sm:text-lg text-slate-400 mt-3">Saksikan penjelasan visual medis mengenai perjalanan infeksi virus dan efektivitas pencegahan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="relative w-full aspect-video rounded-3xl overflow-hidden bg-slate-900 border-2 border-teal-500/30 shadow-2xl">
+                        <iframe id="mainVideoIframe" class="w-full h-full" src="https://www.youtube.com/embed/fd-S4OqIq7E" title="Video Edukasi HIV AIDS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <h3 id="mainVideoTitle" class="text-xl font-bold text-white">Mengenal Infeksi HIV, Mekanisme Sel CD4, dan Terapi ARV</h3>
+                    <p id="mainVideoDesc" class="text-base text-slate-300 leading-relaxed">Penjelasan animasi ringkas mengenai bagaimana virus HIV menginfeksi kekebalan tubuh dan cara obat ARV menahannya.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Pilihan Topik Video Edukasi:</h4>
+                    
+                    <div onclick="changeVideo('fd-S4OqIq7E', 'Mengenal Infeksi HIV, Mekanisme Sel CD4, dan Terapi ARV', 'Penjelasan animasi ringkas mengenai bagaimana virus HIV menginfeksi kekebalan tubuh dan cara obat ARV menahannya.')" 
+                        class="p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 cursor-pointer border border-teal-500/30 flex items-center gap-4 transition-all pharmacare-card">
+                        <div class="w-12 h-12 rounded-xl bg-rose-600/20 text-rose-500 flex items-center justify-center shrink-0 text-xl font-bold">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-base font-bold text-white">1. Patofisiologi HIV & ARV</h5>
+                            <span class="text-xs text-slate-400">Edukasi Dasar Medis</span>
+                        </div>
+                    </div>
+
+                    <div onclick="changeVideo('2yS_kZ3yF4E', 'Prinsip U=U (Undetectable = Untransmittable)', 'Penjelasan riset klinis mengenai viral load tidak terdeteksi yang menghentikan risiko penularan seksual.')" 
+                        class="p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 cursor-pointer border border-teal-500/30 flex items-center gap-4 transition-all pharmacare-card">
+                        <div class="w-12 h-12 rounded-xl bg-brand-teal/20 text-brand-teal flex items-center justify-center shrink-0 text-xl font-bold">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-base font-bold text-white">2. Fakta Ilmiah U=U</h5>
+                            <span class="text-xs text-slate-400">Pencegahan Seksual</span>
+                        </div>
+                    </div>
+
+                    <div onclick="changeVideo('0yL_eQ3E44Y', 'Panduan Penggunaan PrEP & PEP Darurat', 'Tata cara pencegahan sebelum paparan (PrEP) dan tindakan darurat pasca paparan (PEP) dalam 72 jam.')" 
+                        class="p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 cursor-pointer border border-teal-500/30 flex items-center gap-4 transition-all pharmacare-card">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 text-xl font-bold">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-base font-bold text-white">3. Protokol PrEP & PEP</h5>
+                            <span class="text-xs text-slate-400">Pencegahan Khusus</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tim Kelompok Section -->
+    <section id="tim-section" class="py-20 px-4 max-w-7xl mx-auto w-full reveal">
+        <div class="space-y-12">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="px-4 py-1.5 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 text-xs sm:text-sm font-bold rounded-full uppercase">Tim Pengembang</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mt-3">Anggota Kelompok PharmaCare</h2>
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mt-3">Kolaborasi 6 mahasiswa dalam merancang platform edukasi medis terpadu.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Member 1 -->
+                <div class="glass-panel p-7 rounded-3xl text-center relative pharmacare-card shadow-md">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-brand-teal to-emerald-400 p-1 shadow-lg mb-4">
+                        <img src="Potret/foto.2.png" alt="Muhammad Hilal Syafaq" class="w-full h-full rounded-full object-cover" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <span class="px-3 py-1 bg-brand-teal/10 text-brand-teal text-xs font-bold rounded-full">Ketua & Lead Web Dev</span>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3">Muhammad Hilal Syafaq</h3>
+                    <p class="text-sm font-semibold text-slate-400 mt-0.5">NIM: 220101001</p>
+                    <p class="text-base text-slate-600 dark:text-slate-300 mt-3">Penanggung jawab arsitektur kodingan HTML/JS, fitur interaktif, dan fungsionalitas web.</p>
+                    <div class="flex justify-center gap-4 mt-5 text-slate-400">
+                        <a href="https://instagram.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="mailto:hilalsyafaq@gmail.com" class="hover:text-brand-teal text-lg"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="glass-panel p-7 rounded-3xl text-center relative pharmacare-card shadow-md">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-rose-500 to-amber-400 p-1 shadow-lg mb-4">
+                        <img src="Potret/foto.5.png" alt="Marsyada Imania" class="w-full h-full rounded-full object-cover" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <span class="px-3 py-1 bg-rose-500/10 text-rose-500 text-xs font-bold rounded-full">Riset Materi ARV</span>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3">Marsyada Imania</h3>
+                    <p class="text-sm font-semibold text-slate-400 mt-0.5">NIM: 220101002</p>
+                    <p class="text-base text-slate-600 dark:text-slate-300 mt-3">Penyusun materi medis farmakologi obat ARV, penggolongan kelas, dan rekomendasi WHO.</p>
+                    <div class="flex justify-center gap-4 mt-5 text-slate-400">
+                        <a href="https://instagram.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="mailto:marsyada@example.com" class="hover:text-brand-teal text-lg"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="glass-panel p-7 rounded-3xl text-center relative pharmacare-card shadow-md">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-purple-500 to-indigo-400 p-1 shadow-lg mb-4">
+                        <img src="Potret/foto.1.png" alt="Muhammad Ulil Fadli" class="w-full h-full rounded-full object-cover" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <span class="px-3 py-1 bg-purple-500/10 text-purple-500 text-xs font-bold rounded-full">Spesialis Dosis & Kepatuhan</span>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3">Muhammad Ulil Fadli</h3>
+                    <p class="text-sm font-semibold text-slate-400 mt-0.5">NIM: 220101003</p>
+                    <p class="text-base text-slate-600 dark:text-slate-300 mt-3">Perancang algoritma kalkulator kepatuhan minum obat dan panduan manajemen dosis FDC.</p>
+                    <div class="flex justify-center gap-4 mt-5 text-slate-400">
+                        <a href="https://instagram.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="mailto:ulil@example.com" class="hover:text-brand-teal text-lg"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="glass-panel p-7 rounded-3xl text-center relative pharmacare-card shadow-md">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-amber-500 to-emerald-400 p-1 shadow-lg mb-4">
+                        <img src="Potret/foto.4.png" alt="Leila Izza Tiffany" class="w-full h-full rounded-full object-cover" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <span class="px-3 py-1 bg-amber-500/10 text-amber-600 text-xs font-bold rounded-full">Editor Konten & Efek Samping</span>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3">Leila Izza Tiffany</h3>
+                    <p class="text-sm font-semibold text-slate-400 mt-0.5">NIM: 220101004</p>
+                    <p class="text-base text-slate-600 dark:text-slate-300 mt-3">Penyusun panduan pemantauan efek samping obat dan penanganan darurat sindrom Stevens-Johnson.</p>
+                    <div class="flex justify-center gap-4 mt-5 text-slate-400">
+                        <a href="https://instagram.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="mailto:leila@example.com" class="hover:text-brand-teal text-lg"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- Member 5 -->
+                <div class="glass-panel p-7 rounded-3xl text-center relative pharmacare-card shadow-md">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 p-1 shadow-lg mb-4">
+                        <img src="Potret/opel.jpeg" alt="Muhammad Maulana Rafi" class="w-full h-full rounded-full object-cover" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <span class="px-3 py-1 bg-blue-500/10 text-blue-500 text-xs font-bold rounded-full">Riset Pemasaran & Etika</span>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3">Muhammad Maulana Rafi</h3>
+                    <p class="text-sm font-semibold text-slate-400 mt-0.5">NIM: 220101005</p>
+                    <p class="text-base text-slate-600 dark:text-slate-300 mt-3">Penyusun strategi pemasaran farmasi sosial, kemitraan G2G Kemenkes, serta etika distribusi.</p>
+                    <div class="flex justify-center gap-4 mt-5 text-slate-400">
+                        <a href="https://instagram.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="mailto:rafi@example.com" class="hover:text-brand-teal text-lg"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- Member 6 -->
+                <div class="glass-panel p-7 rounded-3xl text-center relative pharmacare-card shadow-md">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 p-1 shadow-lg mb-4">
+                        <img src="Potret/foto.3.png" alt="Wahyu Shofiyudin" class="w-full h-full rounded-full object-cover" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <span class="px-3 py-1 bg-pink-500/10 text-pink-500 text-xs font-bold rounded-full">UI/UX & Sejarah Terapi</span>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3">Wahyu Shofiyudin</h3>
+                    <p class="text-sm font-semibold text-slate-400 mt-0.5">NIM: 220101006</p>
+                    <p class="text-base text-slate-600 dark:text-slate-300 mt-3">Perancang visual antarmuka pengguna, layout responsif, serta penyusun sejarah evolusi ARV.</p>
+                    <div class="flex justify-center gap-4 mt-5 text-slate-400">
+                        <a href="https://instagram.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="hover:text-brand-teal text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="mailto:wahyu@example.com" class="hover:text-brand-teal text-lg"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak & Layanan SOS Section -->
+    <section id="kontak-section" class="py-20 px-4 max-w-7xl mx-auto w-full border-t border-teal-500/20 dark:border-teal-800/40 reveal">
+        <div class="space-y-12">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="px-4 py-1.5 bg-rose-500/10 text-rose-500 border border-rose-500/20 text-xs sm:text-sm font-bold rounded-full uppercase">Layanan Darurat & Bantuan</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mt-3">Kontak Konseling & Layanan SOS</h2>
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mt-3">Butuh teman bicara, lokasi faskes PDP terdekat, atau konsultasi obat rahasia? Tim kami siap membantu.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <!-- Contact Form (Direct to Email) -->
+                <div class="glass-panel p-8 rounded-3xl shadow-lg border border-teal-500/20 dark:border-teal-800/40 pharmacare-card">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-envelope-open-text text-brand-teal"></i> Kirim Pesan Konsultasi Ke Email
+                    </h3>
+
+                    <div id="formSuccessAlert" class="hidden mb-6 p-4 rounded-2xl bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300 font-bold text-sm">
+                        <i class="fa-solid fa-circle-check mr-2"></i> Pesan Anda sedang disiapkan dan akan dikirim ke email tim PharmaCare. Aplikasi email Anda akan terbuka!
+                    </div>
+
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Nama / Inisial :</label>
+                            <input type="text" id="contactName" required placeholder="Nama atau Inisial..." class="w-full p-3.5 rounded-xl border-2 border-teal-500/30 dark:border-teal-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-teal">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Email / Kontak Whatsapp:</label>
+                            <input type="text" id="contactInfo" required placeholder="Email atau No HP..." class="w-full p-3.5 rounded-xl border-2 border-teal-500/30 dark:border-teal-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-teal">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Pertanyaan / Keluhan Obat:</label>
+                            <textarea id="contactMessage" rows="4" required placeholder="Tuliskan pertanyaan Anda mengenai obat ARV, efek samping, atau lokasi konsultasi..." class="w-full p-3.5 rounded-xl border-2 border-teal-500/30 dark:border-teal-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-teal"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-brand-teal hover:bg-teal-700 text-white font-extrabold rounded-xl text-base transition-all shadow-lg shadow-teal-500/20 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Pesan Ke Email
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Emergency Contact Info -->
+                <div class="space-y-6">
+                    <div class="p-7 rounded-3xl bg-rose-600 text-white shadow-xl space-y-4 pharmacare-card">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-3xl font-bold">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-black">Hotline Kemenkes RI</h4>
+                                <p class="text-rose-100 text-sm">Layanan Bebas Pulsa Halo Kemkes</p>
+                            </div>
+                        </div>
+                        <p class="text-base leading-relaxed">Hubungi <strong>+62 823-1454-7381</strong> untuk rujukan layanan PDP terdekat dan informasi ketersediaan stok obat ARV nasional.</p>
+                        <a href="tel:6282314547381" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-rose-600 font-extrabold rounded-xl text-sm hover:bg-rose-50 transition-all">
+                            <i class="fa-solid fa-phone"></i> Panggil Sekarang
+                        </a>
+                    </div>
+
+                    <div class="glass-panel p-7 rounded-3xl space-y-4 shadow-md border border-teal-500/20 dark:border-teal-800/40 pharmacare-card">
+                        <h4 class="font-bold text-xl text-slate-900 dark:text-white flex items-center gap-3">
+                            <i class="fa-solid fa-location-dot text-brand-teal"></i> Lokasi Layanan PDP Terdekat
+                        </h4>
+                        <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Pemeriksaan VCT (Voluntary Counseling and Testing) dan pengambilan obat ARV gratis kini tersedia di seluruh Puskesmas Kecamatan dan Rumah Sakit Umum Daerah (RSUD) di Indonesia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-8 px-4 border-t border-teal-800/40 text-center text-sm">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 PharmaCare — Portal Informasi HIV & AIDS. Hak Cipta Dilindungi.</p>
+            <div class="flex items-center gap-6">
+                <a href="#hero" class="hover:text-white transition-colors">Beranda</a>
+                <a href="#materi-section" class="hover:text-white transition-colors">Materi</a>
+                <a href="#kontak-section" class="hover:text-white transition-colors">Kontak</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interaktif & Sistem Scroll Reveal -->
+    <script>
+        // Toggle Dark Mode
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // Mobile Sidebar Toggle
+        function toggleMobileSidebar() {
+            const drawer = document.getElementById('mobileDrawer');
+            drawer.classList.toggle('hidden');
+            drawer.classList.toggle('flex');
+        }
+
+        // Flip Myth Card
+        function flipMythCard(card) {
+            const front = card.querySelector('.card-front');
+            const back = card.querySelector('.card-back');
+            front.classList.toggle('hidden');
+            back.classList.toggle('hidden');
+        }
+
+        // Toggle Single ARV Class Accordion
+        function toggleARVClass(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (content) {
+                content.classList.toggle('hidden');
+                if (icon) icon.classList.toggle('rotate-180');
+            }
+        }
+
+        // Toggle Accordion Modul Efek Samping
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (content) {
+                content.classList.toggle('hidden');
+                if (icon) icon.classList.toggle('rotate-180');
+            }
+        }
+
+        // Filter ARV Classes via Search
+        function filterExpandableClasses() {
+            const input = document.getElementById('arvClassSearchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.arv-class-accordion');
+            let matchCount = 0;
+
+            items.forEach(item => {
+                const keywords = item.getAttribute('data-keywords') || '';
+                const text = item.innerText.toLowerCase() + ' ' + keywords;
+                if (text.includes(input)) {
+                    item.classList.remove('hidden');
+                    matchCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            const noResults = document.getElementById('noARVResultsFound');
+            const placeholder = document.getElementById('searchKeywordPlaceholder');
+            if (matchCount === 0) {
+                noResults.classList.remove('hidden');
+                placeholder.innerText = input;
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Reset Search
+        function resetARVSearch() {
+            document.getElementById('arvClassSearchInput').value = '';
+            filterExpandableClasses();
+        }
+
+        // Expand / Collapse All ARV Classes
+        let isAllExpanded = false;
+        function toggleExpandAllClasses() {
+            const items = document.querySelectorAll('.arv-class-accordion');
+            const btn = document.getElementById('masterExpandBtn');
+            isAllExpanded = !isAllExpanded;
+
+            items.forEach(item => {
+                const content = item.querySelector('[id^="class-"]');
+                const icon = item.querySelector('i[id$="-icon"]');
+                if (content) {
+                    if (isAllExpanded) {
+                        content.classList.remove('hidden');
+                        if (icon) icon.classList.add('rotate-180');
+                    } else {
+                        content.classList.add('hidden');
+                        if (icon) icon.classList.remove('rotate-180');
+                    }
+                }
+            });
+
+            btn.innerHTML = isAllExpanded 
+                ? '<i class="fa-solid fa-folder-closed"></i> Tutup Semua Kelas' 
+                : '<i class="fa-solid fa-folder-open"></i> Buka Semua Kelas';
+        }
+
+        // Calculate Adherence Score
+        function calculateAdherence() {
+            const totalDoses = parseInt(document.getElementById('dosesPerDay').value) || 30;
+            const missedDoses = parseInt(document.getElementById('missedDoses').value) || 0;
+            
+            const takenDoses = Math.max(0, totalDoses - missedDoses);
+            const percentage = ((takenDoses / totalDoses) * 100).toFixed(1);
+
+            document.getElementById('adherencePercentage').innerText = percentage + '%';
+
+            const statusEl = document.getElementById('adherenceStatus');
+            const adviceEl = document.getElementById('adherenceAdvice');
+
+            if (percentage >= 95) {
+                statusEl.innerText = 'SANGAT BAIK (Target Sesuai)';
+                statusEl.className = 'mt-2 text-sm font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 inline-block';
+                adviceEl.innerText = 'Pertahankan tingkat kepatuhan ini! Anda berada dalam zona aman untuk penekanan virus secara konsisten.';
+            } else if (percentage >= 80) {
+                statusEl.innerText = 'PERLU PERHATIAN (Risiko Resistensi)';
+                statusEl.className = 'mt-2 text-sm font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 inline-block';
+                adviceEl.innerText = 'Tingkat kepatuhan berada di bawah target 95%. Segera pasang alarm harian atau gunakan kotak obat mingguan agar tidak ada dosis terlewat.';
+            } else {
+                statusEl.innerText = 'BAHAYA (Gagal Terapi)';
+                statusEl.className = 'mt-2 text-sm font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 inline-block';
+                adviceEl.innerText = 'Risiko tinggi timbulnya mutasi virus HIV yang kebal obat. Segera konsultasikan dengan dokter atau konselor PDP Anda!';
+            }
+        }
+
+        // Ubah Video Utama
+        function changeVideo(youtubeId, title, desc) {
+            document.getElementById('mainVideoIframe').src = 'https://www.youtube.com/embed/' + youtubeId;
+            document.getElementById('mainVideoTitle').innerText = title;
+            document.getElementById('mainVideoDesc').innerText = desc;
+        }
+
+        // Pengiriman Pesan Langsung Ke Email (mailto:)
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('contactName').value;
+            const contact = document.getElementById('contactInfo').value;
+            const message = document.getElementById('contactMessage').value;
+
+            // Alamat email tujuan
+            const recipientEmail = "pharmacare.id@gmail.com";
+            
+            const subject = encodeURIComponent("Konsultasi PharmaCare - " + name);
+            const body = encodeURIComponent(
+                "NAMA / INISIAL: " + name + "\n" +
+                "EMAIL / WHATSAPP: " + contact + "\n\n" +
+                "PESAN KONSULTASI / KELUHAN:\n" + message + "\n\n" +
+                "--------------------------------------------------\n" +
+                "Dikirim dari Portal Edukasi PharmaCare"
+            );
+
+            // Tampilkan alert pemberitahuan
+            const alertBox = document.getElementById('formSuccessAlert');
+            if (alertBox) {
+                alertBox.classList.remove('hidden');
+            }
+
+            // Membuka email client bawaan perangkat
+            window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+        }
+
+        // Efek Scroll Reveal Animation (Intersection Observer)
+        document.addEventListener("DOMContentLoaded", function () {
+            const reveals = document.querySelectorAll(".reveal");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach((element) => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
